@@ -1,15 +1,10 @@
 #!/usr/bin/python3
-'''
-    Log parsing
-'''
-
-
 import random
 import sys
 from time import sleep
 import datetime
 
-for i in range(1000):
+for i in range(10000):
     sleep(random.random())
     sys.stdout.write("{:d}.{:d}.{:d}.{:d} - [{}] \"GET /projects/260 HTTP/1.1\" {} {}\n".format(
         random.randint(1, 255), random.randint(1, 255), random.randint(1, 255), random.randint(1, 255),

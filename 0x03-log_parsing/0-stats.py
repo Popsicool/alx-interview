@@ -10,7 +10,7 @@ count = 0
 size = 0
 
 
-def print_res(status):
+def print_res(status, size):
     '''
     Print result
     '''
@@ -35,8 +35,9 @@ try:
         except BaseException:
             pass
         if count == 10:
-            print_res(status)
+            print_res(status, size)
             count = 0
 
 except KeyboardInterrupt:
-    print_res(status)
+    print_res(status, size)
+print_res(status, size)
