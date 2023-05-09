@@ -6,7 +6,8 @@ import sys
 
 
 if __name__ == "__main__":
-    status = {}
+    status = {'200': 0, '301': 0, '400': 0, '401': 0,
+              '403': 0, '404': 0, '405': 0, '500': 0}
     count = 0
     size = 0
 
@@ -17,7 +18,8 @@ if __name__ == "__main__":
         print("File size: {}".format(size))
         status = dict(sorted(status.items()))
         for k, v in status.items():
-            print("{}: {}".format(k, v))
+            if v > 0:
+                print("{}: {}".format(k, v))
 
     try:
         for line in sys.stdin:
@@ -25,11 +27,8 @@ if __name__ == "__main__":
             ln = line.split(" ")
             try:
                 code = ln[-2]
-                code = int(code)
                 size += int(ln[-1])
-                if code not in status.keys():
-                    status[code] = 1
-                else:
+                if code in status.keys():
                     status[code] += 1
             except BaseException:
                 pass
