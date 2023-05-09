@@ -5,39 +5,38 @@ Log parsing
 import sys
 
 
-status = {}
-count = 0
-size = 0
+if __name__ == "__main__":
+    status = {}
+    count = 0
+    size = 0
 
+    def print_res(status, size):
+        '''
+        Print result
+        '''
+        print("File size: {}".format(size))
+        status = dict(sorted(status.items()))
+        for k, v in status.items():
+            print("{}: {}".format(k, v))
 
-def print_res(status, size):
-    '''
-    Print result
-    '''
-    print("File size: {}".format(size))
-    status = dict(sorted(status.items()))
-    for k, v in status.items():
-        print("{}: {}".format(k, v))
+    try:
+        for line in sys.stdin:
+            count += 1
+            ln = line.split(" ")
+            try:
+                code = ln[-2]
+                code = int(code)
+                size += int(ln[-1])
+                if code not in status.keys():
+                    status[code] = 1
+                else:
+                    status[code] += 1
+            except BaseException:
+                pass
+            if count == 10:
+                print_res(status, size)
+                count = 0
 
-
-try:
-    for line in sys.stdin:
-        count += 1
-        ln = line.split(" ")
-        try:
-            code = ln[-2]
-            code = int(code)
-            size += int(ln[-1])
-            if code not in status.keys():
-                status[code] = 1
-            else:
-                status[code] += 1
-        except BaseException:
-            pass
-        if count == 10:
-            print_res(status, size)
-            count = 0
-
-except KeyboardInterrupt:
+    except KeyboardInterrupt:
+        print_res(status, size)
     print_res(status, size)
-print_res(status, size)
